@@ -46,12 +46,15 @@
 class Docker {
 
 exec { 'get_docker_compose':
-	command => "/usr/bin/curl -o /usr/local/bin/docker-compose -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)",
+	#command => "/usr/bin/curl -o /usr/local/bin/docker-compose -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)",
+	command => "/usr/bin/apt-get update -y",
+	command => "/usr/bin/apt-get dist-upgrade -y",
+	command => "/usr/bin/apt-get install docker-compose",
 }
 
-exec { 'chmod_docker':
-	command => "chmod +x /usr/local/bin/docker-compose",
-}
+#exec { 'chmod_docker':
+#	command => "chmod +x /usr/local/bin/docker-compose",
+#}
 exec {'verify_installation':
 	command => "docker-compose -v",
 }
