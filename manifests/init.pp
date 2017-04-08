@@ -42,7 +42,17 @@
 #
 # Copyright 2017 Your name here, unless otherwise noted.
 #
+
 class Docker {
 
+exec { 'get_docker_compose':
+	command => "/usr/bin/curl -o /usr/local/bin/docker-compose -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)",
+}
 
+exec { 'chmod_docker':
+	command => "chmod +x /usr/local/bin/docker-compose",
+}
+exec {'verify_installation':
+	command => "docker-compose -v",
+}
 }
